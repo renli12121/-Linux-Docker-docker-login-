@@ -42,5 +42,35 @@
         "https://docker.rainbond.cc"
         ]
     }
+    
+保存退出
+
+    :wq
+    
+步骤二：配置代理
+
+前置条件：①宿主机ip     ②宿主机中的代理软件的端口号
+
+    vim /etc/systemd/system/docker.service.d/http-proxy.conf
+
+将如下内容粘贴进去：
+
+    [Service]
+    Environment="HTTP_PROXY=http://192.168.176.41:7890/"
+    Environment="HTTPS_PROXY=http://192.168.176.41:7890/"
+    Environment="NO_PROXY=localhost,127.0.0.1,::1,192.168.176.0/23,192.168.196.0/24"
+
+    替换ip和端口：
+    ①192.168.176.41替换为宿主机的ip地址
+    ②7890替换为你在宿主机中所使用的的代理软件的端口号，Clash默认7890
+
+![image](https://github.com/user-attachments/assets/aca46789-b09f-448d-9f5f-334d40707171)
+
+保存退出：
+
+    :wq
 
 
+
+
+  
