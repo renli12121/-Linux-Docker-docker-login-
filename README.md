@@ -1,16 +1,16 @@
-虚拟机Linux Docker 代理配置—解决docker login 失败
+# 虚拟机Linux Docker 代理配置—解决docker login 失败
   
     本文详细阐述如何配置Docker代理，以解决无法登录docker官网上传镜像到仓库的问题！
 
-问题描述：
+## 问题描述：
 
     使用 docker login 出现网络问题，导致无法登录 （Client.Timeout exceeded while awaiting headers ），如下图所示：
   
   ![image](https://github.com/user-attachments/assets/9c2e49c4-5b38-452a-9836-32e2ad9757b7)
 
-解决方案：
+## 解决方案：
 
-步骤一：配置国内镜像加速器
+### 步骤一：配置国内镜像加速器
 
     sudo mkdir -p /etc/docker
     sudo vim /etc/docker/daemon.json
@@ -47,7 +47,7 @@
 
     :wq
     
-步骤二：配置代理
+### 步骤二：配置代理
 
 前置条件：①宿主机ip     ②宿主机中的代理软件的端口号
 
@@ -78,7 +78,7 @@
 至此完成了虚拟机中的操作。
 
 
-步骤三：代理软件的相关配置
+### 步骤三：代理软件的相关配置
 
     本文使用的是Clash，不需要修改配置文件，直接在软件界面中设置，简单快捷，其他代理软件可以自行在网络中搜索方法进行相同配置。
 
@@ -101,7 +101,7 @@ cmd中输入如下命令检查：
 
 重启Clash
 
-步骤四：Windows和虚拟机防火墙设置
+### 步骤四：Windows和虚拟机防火墙设置
 
 Windows：
 
@@ -121,7 +121,7 @@ Linux：
 
     sudo firewall-cmd --list-ports
 
-步骤五：验证
+### 步骤五：验证
 
     docker login -u liming264
     Password: 
