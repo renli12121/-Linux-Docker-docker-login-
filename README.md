@@ -6,7 +6,7 @@
 
     使用 docker login 出现网络问题，导致无法登录 （Client.Timeout exceeded while awaiting headers ），如下图所示：
   
-![image](https://github.com/user-attachments/assets/9c2e49c4-5b38-452a-9836-32e2ad9757b7)
+  ![image](https://github.com/user-attachments/assets/9c2e49c4-5b38-452a-9836-32e2ad9757b7)
 
 解决方案：
 
@@ -70,7 +70,67 @@
 
     :wq
 
+加载并重启
 
+    sudo systemctl daemon-reload
+    sudo systemctl restart docker
+    
+至此完成了虚拟机中的操作。
+
+
+步骤三：代理软件的相关配置
+
+    本文使用的是Clash，不需要修改配置文件，直接在软件界面中设置，简单快捷，其他代理软件可以自行在网络中搜索方法进行相同配置。
+
+![image](https://github.com/user-attachments/assets/14e4fdb6-0027-40b6-bc13-49e982df62b5)
+
+①确保 Clash 允许局域网连接：Allow LAN 开启
+
+重启Clash
+
+cmd中输入如下命令检查：
+
+
+    netstat -ano | findstr 7890
+    
+出现如下内容则正确：
+
+![image](https://github.com/user-attachments/assets/860a793e-f498-4adc-b191-ad6cebca4bdf)
+
+②确保启用原始 TCP 转发：TUN Mode 开启
+
+重启Clash
+
+步骤四：Windows和虚拟机防火墙设置
+
+Windows：
+
+    开放7890端口
+
+Linux：
+
+    开放7890 / 443端口
+    sudo firewall-cmd --add-port=7890/tcp --permanent
+    sudo firewall-cmd --add-port=443/tcp --permanent
+
+保存
+
+    sudo firewall-cmd --reload
+
+检查
+
+    sudo firewall-cmd --list-ports
+
+步骤五：验证
+
+    docker login -u liming264
+    Password: 
+
+liming264替换为你的用户名即可。成功状态如下：
+
+![image](https://github.com/user-attachments/assets/b170237e-1b36-4191-a737-edb4add0c8e8)
+
+至此完成整个配置流程，登录之后你可以将自己本地的镜像上传至DockerHub中。
 
 
   
